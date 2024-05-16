@@ -9,6 +9,7 @@ async function main() {
   const { deployer } = await ethers.getNamedSigners();
   const chainId = (await deployer.provider?.getNetwork())?.chainId;
   console.log('chainId', chainId)
+  console.log('deployer', deployer.address)
   const distributorAddress = registry(chainId as unknown as number)?.Merkl?.Distributor // (await deployments.get('DistributionCreator')).address;
 
   if (!distributorAddress) {
@@ -23,17 +24,18 @@ async function main() {
 
   console.log('Toggling operator');
   
-  const res = await (
     await distributor
       .connect(deployer)
-      .toggleOperator('0xfd6db5011b171B05E1Ea3b92f9EAcaEEb055e971','0xeeF7b7205CAF2Bcd71437D9acDE3874C3388c138')
-  ).wait();
+      .toggleOperator('0x392B1E6905bb8449d26af701Cdea6Ff47bF6e5A8','0xeeF7b7205CAF2Bcd71437D9acDE3874C3388c138')
 
+  console.log('OK1')
+/*
   await distributor
   .connect(deployer)
-  .toggleOperator('0xb5b29320d2Dde5BA5BAFA1EbcD270052070483ec','0xeeF7b7205CAF2Bcd71437D9acDE3874C3388c138')
+  .toggleOperator('0xC47bB288178Ea40bF520a91826a3DEE9e0DbFA4C','0xeeF7b7205CAF2Bcd71437D9acDE3874C3388c138')
   
-  console.log(res);
+  console.log('OK2');
+  */
 }
 
 main().catch(error => {
